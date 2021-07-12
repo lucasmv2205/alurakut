@@ -23,7 +23,7 @@ export default function Home() {
   const [followers, setFollowers] = useState([]);
 
   useEffect(() => {
-    fetch(`https://api.github.com/users/${githubUser}/followers`)
+    fetch(`https://api.github.com/users/${githubUser}/following`)
     .then(response => response.json())
     .then(data => setFollowers(data))
   }, []);
