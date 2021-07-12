@@ -2,6 +2,7 @@ import  MainGrid  from '../src/components/MainGrid';
 import  Box  from '../src/components/Box';
 import { AlurakutMenu, OrkutNostalgicIconSet  } from '../src/lib/AlurakutCommons';
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
+import { useState, useEffect } from 'react';
 
 
 // const Title = styled.h1`
@@ -19,6 +20,16 @@ function ProfileSidebar(props) {
 
 export default function Home() {
   const githubUser = 'lucasmv2205';
+  const [followers, setFollowers] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${githubUser}/followers`)
+    .then(response => response.json())
+    .then(data => setFollowers(data))
+  }, []);
+
+  console.log(followers);
+
   const pessoasFavoritas = [
     'juunegreiros',
     'omariosouto',
@@ -49,16 +60,16 @@ export default function Home() {
         <div className="profileRelationsArea" style={{gridArea: 'profileRelationsArea'}}>
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
-              Pessoas da comunidade ({pessoasFavoritas.length})
+              Pessoas da comunidade ({followers.length})
             </h2>
 
             <ul>
-              {pessoasFavoritas.map((pessoaFavorita) => {
+              {followers.map((follower) => {
                 return(
                   <li>
-                    <a href={`/users/${pessoaFavorita}`} key={pessoaFavorita}>
-                      <img src={`https://github.com/${pessoaFavorita}.png`} />
-                      <span>{pessoaFavorita}</span>
+                    <a href={`/users/${follower.login}`} key={follower.id}>
+                      <img src={`https://github.com/${follower.login}.png`} />
+                      <span>{follower.login}</span>
                     </a>
                   </li>
                 );
