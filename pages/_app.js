@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: sans-serif;
     background-color: #8f83eb;
-    background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20200714/pngtree-modern-double-color-futuristic-neon-background-image_351866.jpg")
+    background-image: url("https://mundojs.com.br/wp-content/uploads/2018/07/particulas-1024x473.png");
   }
 
   #__next{
