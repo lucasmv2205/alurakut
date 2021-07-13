@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 
-export function FriendsList(props){
+export function FriendsList(props) {
     const [followers, setFollowers] = useState([]);
 
     useEffect(() => {
         fetch(`https://api.github.com/users/${props.githubUser}/followers`)
-        .then(response => response.json())
-        .then(data => setFollowers(data))
+            .then(response => response.json())
+            .then(data => setFollowers(data))
     }, []);
 
-    return(
+    return (
         <>
             <h2 className="smallTitle">
                 Amigos ({followers.length})
@@ -17,14 +17,14 @@ export function FriendsList(props){
 
             <ul>
                 {followers.map((follower) => {
-                return(
-                    <li>
-                    <a href={`/users/${follower.login}`} key={follower.id}>
-                        <img src={`https://github.com/${follower.login}.png`} />
-                        <span>{follower.login}</span>
-                    </a>
-                    </li>
-                );
+                    return (
+                        <li key={follower.id}>
+                            <a href={`https://github.com/${follower.login}`}>
+                                <img src={`https://github.com/${follower.login}.png`} />
+                                <span>{follower.login}</span>
+                            </a>
+                        </li>
+                    );
                 })}
             </ul>
         </>
