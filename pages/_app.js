@@ -12,7 +12,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: sans-serif;
     background-color: #8f83eb;
     background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20200714/pngtree-modern-double-color-futuristic-neon-background-image_351866.jpg")
-    /* background-image: url("https://i.pinimg.com/736x/35/87/d5/3587d5888f837503b5af01bb9e47ebfc.jpg") */
   }
 
   #__next{
