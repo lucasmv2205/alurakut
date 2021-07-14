@@ -4,7 +4,7 @@ import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
 import { ComunitiesList } from '../src/components/ComunitiesList';
 import { FriendsList } from '../src/components/FriendsList';
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 
 function ProfileSidebar(props) {
   return (
@@ -26,6 +26,7 @@ function ProfileSidebar(props) {
 
 export default function Home() {
   const githubUser = 'lucasmv2205';
+  const [followers, setFollowers] = useState([]);
   const [comunities, setComunities] = useState([
     { id: "2021-07-09T20:53:51.130Z", name: "PQ ir na aula amanhã?", logo: "https://static1.purebreak.com.br/articles/2/11/15/2/@/55643-enquanto-isso-no-whatsapp-sem-opengraph_1200-1.jpg" },
     { id: "2021-07-10T20:53:51.130Z", name: "Morre Praga", logo: "https://s2.glbimg.com/6C8iXLc146uY7UcX1kbDiprbD3k=/1200x/smart/filters:cover():strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2021/5/v/YTfYLvSdm55eJTuZxCNg/memes-phoenix-force-mundial-free-fire-ffws-2021.jpeg" },
@@ -33,6 +34,12 @@ export default function Home() {
     { id: "2021-07-11T20:53:50.130Z", name: "NextJS", logo: "https://miro.medium.com/max/1000/1*htbUdWgFQ3a94PMEvBr_hQ.png" },
     { id: "2021-07-12T20:53:51.130Z", name: "ReactJS", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" }
   ]);
+
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${githubUser}/followers`)
+      .then(response => response.json())
+      .then(data => setFollowers(data))
+  }, []);
 
 
   const handleCreateComunity = useCallback((event) => {
@@ -98,7 +105,7 @@ export default function Home() {
 
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
           <ProfileRelationsBoxWrapper>
-            <FriendsList githubUser={githubUser} />
+            <FriendsList followers={followers} />
           </ProfileRelationsBoxWrapper>
 
           <ProfileRelationsBoxWrapper>

@@ -1,13 +1,5 @@
-import { useState, useEffect } from 'react';
 
-export function FriendsList(props) {
-    const [followers, setFollowers] = useState([]);
-
-    useEffect(() => {
-        fetch(`https://api.github.com/users/${props.githubUser}/followers`)
-            .then(response => response.json())
-            .then(data => setFollowers(data))
-    }, []);
+export function FriendsList({ followers }) {
 
     return (
         <>

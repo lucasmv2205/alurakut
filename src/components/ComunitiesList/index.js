@@ -1,12 +1,12 @@
-export function ComunitiesList(props) {
+export function ComunitiesList({ comunities }) {
 
     return (
         <>
             <h2 className="smallTitle">
-                Comunidades ({props.comunities.length})
+                Comunidades ({comunities.length})
             </h2>
             <ul>
-                {props.comunities.map((comunity) => {
+                {comunities.map((comunity) => {
                     return (
                         <li key={comunity.id}>
                             <a href={`/comunidades/${comunity.name}`}>
