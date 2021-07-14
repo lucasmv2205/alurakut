@@ -5,7 +5,7 @@ import { ComunitiesList } from '../src/components/ComunitiesList';
 import { FollowersList } from '../src/components/FollowersList';
 import { FollowingList } from '../src/components/FollowingList';
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 
@@ -38,37 +38,40 @@ export default function Home() {
     { id: "357951", name: "ReactJS", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png", communityURL: "#" }
   ]);
 
-  useEffect(() => {
-    async function getFollowers() {
-      try {
-        const response = await axios.get(`https://api.github.com/users/${githubUser}/followers`);
-        setFollowers(response.data)
-      } catch (error) {
-        addToast({
-          type: 'error',
-          title: 'Erro ao buscar amigos',
-          description: 'Erro ao realizar requisição',
-        });
-      }
-    }
-    getFollowers()
+  const getFollowers = useCallback(async () => {
+    const response = await axios.get(`https://api.github.com/users/${githubUser}/followers`);
+
+    return response;
+  }, []);
+
+  const getFollowings = useCallback(async () => {
+    const response = await axios.get(`https://api.github.com/users/${githubUser}/following`);
+
+    return response;
   }, []);
 
   useEffect(() => {
-    async function getFollowings() {
+    async function getGithubFriends() {
       try {
-        const response = await axios.get(`https://api.github.com/users/${githubUser}/following`);
-        setFollowings(response.data)
+        const response = await Promise.all([
+          getFollowers(),
+          getFollowings(),
+        ]);
+
+        setFollowers(response[0].data);
+        setFollowings(response[1].data);
       } catch (error) {
-        addToast({
-          type: 'error',
-          title: 'Erro ao buscar seguidores',
-          description: 'Erro ao realizar requisição',
-        });
+        alert("Não foi possível buscar os dados do github")
+        // addToast({
+        //   type: 'error',
+        //   title: 'Erro na requisição',
+        //   description: 'Não foi possivel buscar os dados',
+        // });
       }
     }
-    getFollowings()
-  }, []);
+
+    getGithubFriends();
+  }, [getFollowers, getFollowings]);
 
 
   function handleNewComunity(event) {
@@ -85,8 +88,6 @@ export default function Home() {
 
     setComunities([...comunities, comunity]);
   }
-
-
 
   return (
     <>
