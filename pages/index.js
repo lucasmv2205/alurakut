@@ -2,7 +2,8 @@ import { MainGrid } from '../src/components/MainGrid';
 import { Box } from '../src/components/Box';
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
 import { ComunitiesList } from '../src/components/ComunitiesList';
-import { FriendsList } from '../src/components/FriendsList';
+import { FollowersList } from '../src/components/FollowersList';
+import { FollowingList } from '../src/components/FollowingList';
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -29,6 +30,7 @@ function ProfileSidebar(props) {
 export default function Home() {
   const githubUser = 'lucasmv2205';
   const [followers, setFollowers] = useState([]);
+  const [followings, setFollowings] = useState([]);
   const [comunities, setComunities] = useState([
     { id: "147896", name: "PQ ir na aula amanhã?", logo: "https://static1.purebreak.com.br/articles/2/11/15/2/@/55643-enquanto-isso-no-whatsapp-sem-opengraph_1200-1.jpg", communityURL: "#" },
     { id: "147852", name: "Morre Praga", logo: "https://s2.glbimg.com/6C8iXLc146uY7UcX1kbDiprbD3k=/1200x/smart/filters:cover():strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2021/5/v/YTfYLvSdm55eJTuZxCNg/memes-phoenix-force-mundial-free-fire-ffws-2021.jpeg", communityURL: "#" },
@@ -44,12 +46,28 @@ export default function Home() {
       } catch (error) {
         addToast({
           type: 'error',
-          title: 'Erro ao buscar seguidores',
+          title: 'Erro ao buscar amigos',
           description: 'Erro ao realizar requisição',
         });
       }
     }
     getFollowers()
+  }, []);
+
+  useEffect(() => {
+    async function getFollowings() {
+      try {
+        const response = await axios.get(`https://api.github.com/users/${githubUser}/following`);
+        setFollowings(response.data)
+      } catch (error) {
+        addToast({
+          type: 'error',
+          title: 'Erro ao buscar seguidores',
+          description: 'Erro ao realizar requisição',
+        });
+      }
+    }
+    getFollowings()
   }, []);
 
 
@@ -123,7 +141,11 @@ export default function Home() {
 
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
           <ProfileRelationsBoxWrapper>
-            <FriendsList followers={followers} />
+            <FollowersList followers={followers} />
+          </ProfileRelationsBoxWrapper>
+
+          <ProfileRelationsBoxWrapper>
+            <FollowingList followings={followings} />
           </ProfileRelationsBoxWrapper>
 
           <ProfileRelationsBoxWrapper>

@@ -1,10 +1,10 @@
 
-export function FriendsList({ followers }) {
+export function FollowersList({ followers }) {
 
     return (
         <>
             <h2 className="smallTitle">
-                Amigos ({followers.length})
+                Seguidores ({followers.length})
             </h2>
 
             <ul>
