@@ -30,10 +30,10 @@ export default function Home() {
   const githubUser = 'lucasmv2205';
   const [followers, setFollowers] = useState([]);
   const [comunities, setComunities] = useState([
-    { id: "147896", name: "PQ ir na aula amanhã?", logo: "https://static1.purebreak.com.br/articles/2/11/15/2/@/55643-enquanto-isso-no-whatsapp-sem-opengraph_1200-1.jpg" },
-    { id: "147852", name: "Morre Praga", logo: "https://s2.glbimg.com/6C8iXLc146uY7UcX1kbDiprbD3k=/1200x/smart/filters:cover():strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2021/5/v/YTfYLvSdm55eJTuZxCNg/memes-phoenix-force-mundial-free-fire-ffws-2021.jpeg" },
-    { id: "78965", name: "NextJS", logo: "https://miro.medium.com/max/1000/1*htbUdWgFQ3a94PMEvBr_hQ.png" },
-    { id: "357951", name: "ReactJS", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" }
+    { id: "147896", name: "PQ ir na aula amanhã?", logo: "https://static1.purebreak.com.br/articles/2/11/15/2/@/55643-enquanto-isso-no-whatsapp-sem-opengraph_1200-1.jpg", communityURL: "#" },
+    { id: "147852", name: "Morre Praga", logo: "https://s2.glbimg.com/6C8iXLc146uY7UcX1kbDiprbD3k=/1200x/smart/filters:cover():strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2021/5/v/YTfYLvSdm55eJTuZxCNg/memes-phoenix-force-mundial-free-fire-ffws-2021.jpeg", communityURL: "#" },
+    { id: "78965", name: "NextJS", logo: "https://miro.medium.com/max/1000/1*htbUdWgFQ3a94PMEvBr_hQ.png", communityURL: "#" },
+    { id: "357951", name: "ReactJS", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png", communityURL: "#" }
   ]);
 
   useEffect(() => {
@@ -60,8 +60,9 @@ export default function Home() {
       id: new Date().toISOString(),
       title: data.get("title"),
       logo:
-        data.get("image") ||
+        data.get("logo") ||
         `https://picsum.photos/300/300?${new Date().toISOString()}`,
+      communityURL: data.get("communityURL") || "#",
     };
 
     setComunities([...comunities, comunity]);
@@ -91,7 +92,7 @@ export default function Home() {
             <form onSubmit={handleNewComunity}>
               <div>
                 <input
-                  placeholder="Qual vai ser o nome da sua comunidade"
+                  placeholder="Qual vai ser o nome da sua comunidade?"
                   name="title"
                   aria-label="Qual vai ser o nome da sua comunidade"
                   type="text"
@@ -100,8 +101,16 @@ export default function Home() {
               <div>
                 <input
                   placeholder="Coloque uma url para usarmos de capa"
-                  name="image"
+                  name="logo"
                   aria-label="Coloque uma url para usarmos de capa"
+                />
+              </div>
+              <div>
+                <input
+                  placeholder="Coloque a URL da comunidade"
+                  name="communityURL"
+                  aria-label="Coloque a URL da comunidade"
+                  type="text"
                 />
               </div>
 

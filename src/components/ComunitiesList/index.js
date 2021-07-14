@@ -10,7 +10,7 @@ export function ComunitiesList({ comunities }) {
                     if (index < 6) {
                         return (
                             <li key={comunity.id}>
-                                <a href={`/comunidades/${comunity.name}`}>
+                                <a href={comunity.communityURL}>
                                     <img src={comunity.logo} />
                                     <span>{comunity.name}</span>
                                 </a>
