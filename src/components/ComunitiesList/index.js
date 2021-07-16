@@ -10,9 +10,9 @@ export function ComunitiesList({ comunities }) {
                     if (index < 6) {
                         return (
                             <li key={comunity.id}>
-                                <a href={comunity.communityURL}>
-                                    <img src={comunity.logo} />
-                                    <span>{comunity.name}</span>
+                                <a href={comunity.communityUrl}>
+                                    <img src={comunity.imageUrl} />
+                                    <span>{comunity.title}</span>
                                 </a>
                             </li>
                         );
