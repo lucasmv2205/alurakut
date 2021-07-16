@@ -142,7 +142,6 @@ export default function Home() {
           <Box>
             <h1 className="title">
               Bem vindo(a)
-              {console.log(process.env.DATOCMS_READ_TOKEN_AUTHORIZATION)}
             </h1>
 
             <OrkutNostalgicIconSet />
