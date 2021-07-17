@@ -1,12 +1,14 @@
 
 import { useState } from 'react';
-// Hook do NextJS
 import { useRouter } from 'next/router';
 import nookies from 'nookies';
+import Button from '../src/components/Button';
+import { StateButton } from '../src/utils/StateButton';
 
 export default function Login() {
     const router = useRouter();
     const [githubUser, setGithubUser] = useState('');
+    const [stateButton, setStateButton] = useState(StateButton.start);
 
     return (
         <main style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -22,6 +24,9 @@ export default function Login() {
                 <section className="formArea">
                     <form className="box" onSubmit={(infosDoEvento) => {
                         infosDoEvento.preventDefault();
+                        setInterval(() => {
+                            setStateButton(StateButton.loading);
+                        }, 2000);
                         console.log('Usuário: ', githubUser)
                         fetch('https://alurakut.vercel.app/api/login', {
                             method: 'POST',
@@ -33,10 +38,12 @@ export default function Login() {
                             .then(async (respostaDoServer) => {
                                 const dadosDaResposta = await respostaDoServer.json()
                                 const token = dadosDaResposta.token;
+                                setStateButton(StateButton.success);
                                 nookies.set(null, 'USER_TOKEN', token, {
                                     path: '/',
                                     maxAge: 86400 * 7
                                 })
+                                setStateButton(StateButton.start);
                                 router.push('/')
                             })
                     }}>
@@ -54,9 +61,9 @@ export default function Login() {
                             ? 'Preencha o campo'
                             : ''
                         }
-                        <button type="submit">
+                        <Button type="submit" state={stateButton}>
                             Login
-                        </button>
+                        </Button>
                     </form>
 
                     <footer className="box">

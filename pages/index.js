@@ -6,7 +6,10 @@ import { FollowersList } from '../src/components/FollowersList';
 import jwt from 'jsonwebtoken';
 import nookies from 'nookies';
 import { FollowingList } from '../src/components/FollowingList';
+import Button from '../src/components/Button';
+import { StateButton } from '../src/utils/StateButton';
 import { Loading } from '../src/components/Loading';
+import { useToast } from '../src/contexts/ToastContext';
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
@@ -34,6 +37,8 @@ export default function Home(props) {
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
   const [comunities, setComunities] = useState([]);
+  const [stateButton, setStateButton] = useState(StateButton.start);
+  const { addToast } = useToast();
   const [loadingGithubFriends, setLoadingGithubFriends] = useState(true);
   const [loadingDatoCms, setLoadingDatoCms] = useState(true);
 
@@ -72,11 +77,19 @@ export default function Home(props) {
         }).then((response) => response.json());
 
         setComunities(response.data.allCommunities);
+        addToast({
+          type: 'success',
+          title: 'Sucesso ao buscar dados',
+          description: 'Sucesso ao buscar dados do DatoCMS',
+        });
         setInterval(() => setLoadingDatoCms(false), 1000);
 
       } catch (error) {
-        alert("Não foi possível buscar os dados do datoCMS");
-        console.log(error);
+        addToast({
+          type: 'error',
+          title: 'Erro ao buscar dados',
+          description: 'Erro ao buscar dados do github',
+        });
       }
     }
 
@@ -93,10 +106,19 @@ export default function Home(props) {
 
         setFollowers(response[0].data);
         setFollowings(response[1].data);
+        addToast({
+          type: 'success',
+          title: 'Sucesso ao buscar dados',
+          description: 'Sucesso ao buscar dados do github',
+        });
         setInterval(() => setLoadingGithubFriends(false), 1000);
 
       } catch (error) {
-        alert("Não foi possível buscar os dados do github")
+        addToast({
+          type: 'error',
+          title: 'Erro ao buscar dados',
+          description: 'Erro ao buscar dados do github',
+        });
       }
     }
 
@@ -107,6 +129,9 @@ export default function Home(props) {
   function handleNewComunity(event) {
     event.preventDefault();
     const data = new FormData(event.target);
+    setTimeout(() => {
+      setStateButton(StateButton.loading);
+    }, 2000);
 
     const comunity = {
       title: data.get("title"),
@@ -130,6 +155,17 @@ export default function Home(props) {
       setComunities([...comunities, comunity]);
     });
 
+    setStateButton(StateButton.success);
+
+    addToast({
+      type: 'success',
+      title: 'Sucesso ao cadastrar comunidade',
+      description: 'Sucesso ao cadastrar nova comunidade',
+    });
+
+    setTimeout(() => {
+      setStateButton(StateButton.start);
+    }, 2000);
   }
 
   return (
@@ -176,9 +212,9 @@ export default function Home(props) {
                 />
               </div>
 
-              <button type="submit">
-                Criar comunidade
-              </button>
+              <Button type="submit" state={stateButton}>
+                Cadastrar
+              </Button>
             </form>
           </Box>
         </div>

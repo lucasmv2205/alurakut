@@ -7,8 +7,11 @@ import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations'
 import ProfilePage from '../src/components/ProfilePage'
 import TableSocial from '../src/components/TableuSocial'
 import axios from 'axios';
+import { useToast } from '../src/contexts/ToastContext'
+
 
 function ProfileSidebar(props) {
+
     return (
         <Box as="aside">
             <img src={`https://github.com/${props.githubUser}.png`} style={{ borderRadius: '8px' }} />
@@ -29,6 +32,7 @@ function ProfileSidebar(props) {
 
 export default function Profile() {
     const [gitUser, setGitUser] = useState('')
+    const { addToast } = useToast();
 
     useEffect(() => {
         async function getGithubData() {
@@ -38,9 +42,18 @@ export default function Profile() {
                 console.log(response.data.login);
 
                 setGitUser(response.data.login);
+                addToast({
+                    type: 'info',
+                    title: 'Página de perfil carregada com sucesso',
+                    description: 'Página de perfil carregada com sucesso',
+                });
 
             } catch (error) {
-                alert("Não foi possível buscar os dados do github")
+                addToast({
+                    type: 'error',
+                    title: 'Erro ao carregar página de perfil',
+                    description: 'Erro ao carregar página de perfil',
+                });
             }
         }
 

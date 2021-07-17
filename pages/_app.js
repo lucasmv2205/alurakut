@@ -1,5 +1,7 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { AlurakutStyles } from '../src/lib/AlurakutCommons';
+import AppProvider from '../src/contexts/index';
+
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -42,7 +44,9 @@ export default function App({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <AppProvider>
+          <Component {...pageProps} />
+        </AppProvider>
       </ThemeProvider>
     </>
   )
