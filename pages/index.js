@@ -243,6 +243,15 @@ export async function getServerSideProps(ctx) {
 
   const githubUser = decodedToken?.githubUser;
 
+  if (!githubUser) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
+
   return {
     props: {
       githubUser,
