@@ -6,13 +6,13 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow-y: auto;
   }
 
   body {
     font-family: sans-serif;
     background-color: #8f83eb;
     background-image: url("https://mundojs.com.br/wp-content/uploads/2018/07/particulas-1024x473.png");
+    font-family: sans-serif;
   }
 
   #__next{
@@ -25,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
     max-width: 100%;
     height: auto;
     display: block;
+    border-radius: 8px;
   }
 
   ${AlurakutStyles}

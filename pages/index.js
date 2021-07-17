@@ -3,6 +3,8 @@ import { Box } from '../src/components/Box';
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations';
 import { ComunitiesList } from '../src/components/ComunitiesList';
 import { FollowersList } from '../src/components/FollowersList';
+import jwt from 'jsonwebtoken';
+import nookies from 'nookies';
 import { FollowingList } from '../src/components/FollowingList';
 import { Loading } from '../src/components/Loading';
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
@@ -27,8 +29,8 @@ function ProfileSidebar(props) {
   );
 }
 
-export default function Home() {
-  const githubUser = 'lucasmv2205';
+export default function Home(props) {
+  const githubUser = props.githubUser;
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
   const [comunities, setComunities] = useState([]);
@@ -70,7 +72,7 @@ export default function Home() {
         }).then((response) => response.json());
 
         setComunities(response.data.allCommunities);
-        setInterval(() => setLoadingDatoCms(false), 2000);
+        setInterval(() => setLoadingDatoCms(false), 1000);
 
       } catch (error) {
         alert("Não foi possível buscar os dados do datoCMS");
@@ -91,7 +93,7 @@ export default function Home() {
 
         setFollowers(response[0].data);
         setFollowings(response[1].data);
-        setInterval(() => setLoadingGithubFriends(false), 2000);
+        setInterval(() => setLoadingGithubFriends(false), 1000);
 
       } catch (error) {
         alert("Não foi possível buscar os dados do github")
@@ -144,7 +146,7 @@ export default function Home() {
               Bem vindo(a)
             </h1>
 
-            <OrkutNostalgicIconSet />
+            <OrkutNostalgicIconSet recados="3" fotos="10" fas="1" videos="0" mensagens="999" sexy="2" confiavel="2" />
           </Box>
 
           <Box>
@@ -215,4 +217,35 @@ export default function Home() {
       </MainGrid>
     </>
   );
+}
+
+export async function getServerSideProps(ctx) {
+  const cookies = nookies.get(ctx);
+  const token = cookies.USER_TOKEN;
+  const decodedToken = jwt.decode(token);
+
+  const { isAuthenticated } = await fetch('https://alurakut.vercel.app/api/auth', {
+    headers: {
+      Authorization: token
+    }
+  })
+    .then((resposta) => resposta.json())
+  console.log('Usuário Logado: ', isAuthenticated);
+
+  if (!isAuthenticated) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      }
+    }
+  }
+
+  const githubUser = decodedToken?.githubUser;
+
+  return {
+    props: {
+      githubUser,
+    }
+  }
 }

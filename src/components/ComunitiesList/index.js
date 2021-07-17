@@ -19,7 +19,6 @@ export function ComunitiesList({ comunities }) {
                     }
                 })}
             </ul>
-            <a>ver todos</a>
         </>
     );
 }
