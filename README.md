@@ -1,20 +1,18 @@
-# Alurakut - (Imersão React Alura) 👨‍💻
+# Alurakut 👨‍💻
 
-### Projeto desenvolvido no fim da semana da Imersão React da Alura
-
-
-📅 18/07/2021
-
+### Projeto final da Imersão React da Alura
 
 ## Acesse 🚀🚀🚀
 [alurakut-wine.vercel.app/](alurakut-wine.vercel.app/)
 
 ## Stack 🧶
 - NextJs
-- Deploy feito na Vercel
+- Datocms API com GraphQl
+- Github API
+- Deploy na Vercel
 
 ## Features 🥗
-- Autenticação OAuth com GitHub
+- Autenticação com cookies usando a lib nookies
 - Listagem de seguidores e seguindo
 - Listagem de repositórios
 - Breve informação do perfil logado
