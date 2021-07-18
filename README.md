@@ -2,14 +2,8 @@
 
 ### Projeto final da Imersão React da Alura
 
-## Acesse 🚀
+## Projeto no ar 🚀
 [alurakut-wine.vercel.app/](alurakut-wine.vercel.app/)
-
-## Stack 🧶
-- NextJs
-- Datocms API com GraphQl
-- Github API
-- Deploy na Vercel
 
 ## Features desenvolvidas
 - Autenticação com cookies usando a lib nookies
@@ -24,3 +18,9 @@
 ```bash
 yarn dev
 ```
+
+## Stack do projeto
+- NextJs
+- Datocms API com GraphQl
+- Github API
+- Deploy na Vercel
