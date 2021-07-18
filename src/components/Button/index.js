@@ -8,7 +8,6 @@ const Button = ({ children, state, ...rest }) => {
         return (
             <button
                 type="button"
-                className="btn btn-success font-weight-bold btn-pill btn-min-fixed"
                 {...rest}
             >
                 <span className="text-white mr-4">Sucesso</span>
@@ -20,7 +19,6 @@ const Button = ({ children, state, ...rest }) => {
         return (
             <button
                 type="button"
-                className="btn btn-primary spinner spinner-white spinner-right font-weight-bold btn-pill btn-min-fixed"
                 {...rest}
             >
                 Carregando
@@ -31,7 +29,6 @@ const Button = ({ children, state, ...rest }) => {
         return (
             <button
                 type="button"
-                className="btn btn-danger  font-weight-bold btn-pill btn-min-fixed"
                 {...rest}
             >
                 <span className="text-white mr-4">Erro</span>
@@ -42,7 +39,6 @@ const Button = ({ children, state, ...rest }) => {
     return (
         <button
             type="button"
-            className="btn btn-primary font-weight-bold btn-pill btn-min-fixed"
             {...rest}
         >
             {children}

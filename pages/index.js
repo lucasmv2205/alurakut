@@ -5,6 +5,7 @@ import { ComunitiesList } from '../src/components/ComunitiesList';
 import { FollowersList } from '../src/components/FollowersList';
 import jwt from 'jsonwebtoken';
 import nookies from 'nookies';
+import * as Yup from 'yup';
 import { FollowingList } from '../src/components/FollowingList';
 import Button from '../src/components/Button';
 import { StateButton } from '../src/utils/StateButton';
