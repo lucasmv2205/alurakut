@@ -2,7 +2,7 @@
 
 ### Projeto final da Imersão React da Alura
 
-## Acesse 🚀🚀🚀
+## Acesse 🚀
 [alurakut-wine.vercel.app/](alurakut-wine.vercel.app/)
 
 ## Stack 🧶
@@ -11,36 +11,16 @@
 - Github API
 - Deploy na Vercel
 
-## Features 🥗
+## Features desenvolvidas
 - Autenticação com cookies usando a lib nookies
-- Listagem de seguidores e seguindo
-- Listagem de repositórios
-- Breve informação do perfil logado
+- Listagem de seguidores e seguindo com api do githun
+- Listagem das comunidades com datocms
+- Informações do meu usuário
+- Feedback através de toast de sucesso ou erro
 
 
-## Roadmap 🚟
-- Listar dados do perfil GitHub
-- Editar Perfil
-- Mensagens de seguidores
-- Depoimentos
-
-
-### Para rodar o projeto 🧾
+### Rodar o projeto 🧾
 
 ```bash
-npm run dev
-```
-
-Se não possuir um banco de dados MySQL, comente o trecho do código em `[...nextauth.js]`
-
-```javascript
-database: {
-    type: 'mysql',
-    host: process.env.DATABASE_HOST,
-    port: 3306,
-    username: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_NAME,
-    synchronize: true
-},
+yarn dev
 ```
