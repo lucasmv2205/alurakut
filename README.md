@@ -7,7 +7,7 @@
 
 ## Features desenvolvidas
 - Autenticação com cookies usando a lib nookies
-- Listagem de seguidores e seguindo com api do githun
+- Listagem de seguidores e seguindo com api do github
 - Listagem das comunidades com datocms
 - Informações do meu usuário
 - Rotas de login e logout
